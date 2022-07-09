@@ -1,6 +1,6 @@
 import { Component, Element, h, State } from '@stencil/core';
 
-const QUERY_PARAMS = { headers: { authorization: "token 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" } };
+const QUERY_PARAMS = { headers: { authorization: "token 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" } };
 const GITHUB_BASE_URL = 'https://api.github.com';
 const GITHUB_REPOS_BASE_URL = `${GITHUB_BASE_URL}/repos`;
 const DEFAULT_CONTRIBUTORS_COUNT = 30;
