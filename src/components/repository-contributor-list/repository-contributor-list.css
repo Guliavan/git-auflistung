@@ -1,3 +1,18 @@
 :host {
-  display: block;
+    display: block;
+}
+
+.contributor__list {
+    border: 1px solid #bbb;
+    gap: 5px;
+}
+
+.contributor__list td {
+    border: 1px solid #bbb;
+}
+
+.contributor__avatar {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
 }

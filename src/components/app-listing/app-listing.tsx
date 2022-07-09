@@ -1,9 +1,7 @@
 import { Component, Element, h, State } from '@stencil/core';
 
-const ACCESS_TOKEN = '';
-const QUERY_PARAMS = ACCESS_TOKEN.length > 0 ? { headers: { authorization: `token ${ACCESS_TOKEN}` } } : {};
-const GITHUB_BASE_URL = 'https://api.github.com';
-const GITHUB_REPOS_BASE_URL = `${GITHUB_BASE_URL}/repos`;
+import { QUERY_PARAMS, GITHUB_REPOS_BASE_URL} from '../../global/constants';
+
 const DEFAULT_CONTRIBUTORS_COUNT = 30;
 
 @Component({
@@ -90,7 +88,7 @@ export class AppHome {
                     this.currentRepositoryInfo ?
                         <article class="repository-detail">
                             <repository-detail repoInfo={this.currentRepositoryInfo}></repository-detail>
-                            <hr />
+
                             <repository-contributor-list contributorList={this.currentRepositoryContributorList}></repository-contributor-list>
                         </article>
                         : this.noResultFound ? 'No information found for given repository / owner :(' : ''
