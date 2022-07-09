@@ -1,4 +1,4 @@
-import { Prop, State } from '@rdd-giga/component-ui/dist/types/stencil-public-runtime';
+import { Prop, State, Watch } from '@rdd-giga/component-ui/dist/types/stencil-public-runtime';
 import { Component, Host, h } from '@stencil/core';
 
 import { QUERY_PARAMS } from '../../global/constants';
@@ -14,6 +14,11 @@ export class RepositoryContributorList {
 
     @Prop() contributorList: Array<any> = null;
     @State() fullContributorInfoList = new Array<any>();
+
+    @Watch('contributorList')
+    watchHandler(_newValue: string): void {
+        this.updateFullControbutorList();
+    }
 
     async getFullContributorInfo(contributor: any) {
         const result = {
@@ -37,19 +42,23 @@ export class RepositoryContributorList {
         return result;
     }
 
-    componentDidLoad() {
+    updateFullControbutorList() {
         // Get complete contributor information and update state variable to trigger re-render
         const temporaryList = new Array<any>();
         this.contributorList.map((contributor, index) => {
             this.getFullContributorInfo(contributor).then(
                 fullContributorInfo => {
                     temporaryList.push(fullContributorInfo);
-                    if (index == this.contributorList.length -1) {
+                    if (index == this.contributorList.length - 1) {
                         this.fullContributorInfoList = temporaryList;
                     }
                 }
             )
         });
+    }
+
+    componentDidLoad() {
+        this.updateFullControbutorList();
     }
 
     render() {
