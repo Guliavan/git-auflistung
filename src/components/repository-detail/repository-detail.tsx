@@ -1,6 +1,9 @@
 import { Component, Host, h, Prop } from '@stencil/core';
 import { EmojiConvertor } from 'emoji-js';
 
+/**
+ * Repository Detail component. Takes repository info JSON as parameter and displays information.
+ */
 @Component({
     tag: 'repository-detail',
     styleUrl: 'repository-detail.css',
@@ -8,6 +11,18 @@ import { EmojiConvertor } from 'emoji-js';
 })
 export class RepositoryDetail {
 
+    /**
+     * The repository info JSON with this format returned by Github API. Displaying keys that are considered for this component:
+     * {
+            name: 'Repository Name',
+            description: 'Repository Description'
+            language: 'English',
+            license: { name: 'License Name' },
+            stargazers_count: 345,
+            homepage: 'http://homepage.tld',
+            clone_url: 'http://git-clone-url.git.tld'
+     *  }
+     */
     @Prop() repoInfo: any = null;
 
     convertPossibleEmojis(text: string) {

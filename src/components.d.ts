@@ -11,9 +11,15 @@ export namespace Components {
     interface AppRoot {
     }
     interface RepositoryContributorList {
+        /**
+          * An array of contributors JSON with format returned by Github API. Displaying keys that are considered for this component: [      {          avatar_url: 'http://some-image-url.tld',          login: 'loginname1',          contributions: 10,          url: 'http://somecontriburl.tld'      },      {          avatar_url: 'http://some-image-url-2.tld',          login: 'loginname2',          contributions: 12,          url: 'http://somecontriburl2.tld'      }  ]
+         */
         "contributorList": Array<any>;
     }
     interface RepositoryDetail {
+        /**
+          * The repository info JSON with this format returned by Github API. Displaying keys that are considered for this component: {      name: 'Repository Name',      description: 'Repository Description'      language: 'English',      license: { name: 'License Name' },      stargazers_count: 345,      homepage: 'http://homepage.tld',      clone_url: 'http://git-clone-url.git.tld'  }
+         */
         "repoInfo": any;
     }
 }
@@ -55,9 +61,15 @@ declare namespace LocalJSX {
     interface AppRoot {
     }
     interface RepositoryContributorList {
+        /**
+          * An array of contributors JSON with format returned by Github API. Displaying keys that are considered for this component: [      {          avatar_url: 'http://some-image-url.tld',          login: 'loginname1',          contributions: 10,          url: 'http://somecontriburl.tld'      },      {          avatar_url: 'http://some-image-url-2.tld',          login: 'loginname2',          contributions: 12,          url: 'http://somecontriburl2.tld'      }  ]
+         */
         "contributorList"?: Array<any>;
     }
     interface RepositoryDetail {
+        /**
+          * The repository info JSON with this format returned by Github API. Displaying keys that are considered for this component: {      name: 'Repository Name',      description: 'Repository Description'      language: 'English',      license: { name: 'License Name' },      stargazers_count: 345,      homepage: 'http://homepage.tld',      clone_url: 'http://git-clone-url.git.tld'  }
+         */
         "repoInfo"?: any;
     }
     interface IntrinsicElements {

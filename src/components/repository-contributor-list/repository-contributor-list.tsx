@@ -4,6 +4,10 @@ import { QUERY_PARAMS } from '../../global/constants';
 
 const EMPTY_AVATAR_URL = 'https://www.travelcontinuously.com/wp-content/uploads/2018/04/empty-avatar.png';
 
+/**
+ * Repository Contributors List component. Takes contributors array as parameter and displays information.
+ * Each contributors information will be augmented to display more detail. Calls are made to Github API for each contributors using their API url.
+ */
 @Component({
     tag: 'repository-contributor-list',
     styleUrl: 'repository-contributor-list.css',
@@ -11,7 +15,25 @@ const EMPTY_AVATAR_URL = 'https://www.travelcontinuously.com/wp-content/uploads/
 })
 export class RepositoryContributorList {
 
+    /**
+     * An array of contributors JSON with format returned by Github API. Displaying keys that are considered for this component:
+     * [
+            {
+                avatar_url: 'http://some-image-url.tld',
+                login: 'loginname1',
+                contributions: 10,
+                url: 'http://somecontriburl.tld'
+            },
+            {
+                avatar_url: 'http://some-image-url-2.tld',
+                login: 'loginname2',
+                contributions: 12,
+                url: 'http://somecontriburl2.tld'
+            }
+     *  ]
+     */
     @Prop() contributorList: Array<any> = null;
+
     @State() fullContributorInfoList = new Array<any>();
 
     @Watch('contributorList')

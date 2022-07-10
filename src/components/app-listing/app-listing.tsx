@@ -4,6 +4,9 @@ import { QUERY_PARAMS, GITHUB_REPOS_BASE_URL } from '../../global/constants';
 
 const DEFAULT_CONTRIBUTORS_COUNT = 30;
 
+/**
+ * The Git auflistung main page. Displays the repository search form as well as results : repository detail and contributors list
+ */
 @Component({
     tag: 'app-listing',
     styleUrl: 'app-listing.css',

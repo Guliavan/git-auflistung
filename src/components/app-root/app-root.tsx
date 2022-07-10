@@ -1,5 +1,8 @@
 import { Component, h } from '@stencil/core';
 
+/**
+ * The Git Auflistung root page. Defines base structure and routes.
+ */
 @Component({
   tag: 'app-root',
   styleUrl: 'app-root.css',
