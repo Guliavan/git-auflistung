@@ -77,23 +77,29 @@ export class AppHome {
                         <section class="repository-search__fields">
                             <label htmlFor="searchOwnerName">Owner's name</label>
                             <input
+                                tabIndex={ 1 }
                                 type="text"
                                 id="searchOwnerName"
                                 placeholder="Owner's name"
+                                title="Owner's name"
                                 value=""
                                 onKeyPress={event => this.checkSubmitOnEnter(event) }/>
                             <label htmlFor="searchRepository">Repository name</label>
                             <input
+                                tabIndex={ 2 }
                                 type="text"
                                 id="searchRepository"
                                 placeholder="Repository name"
+                                title="Repository name"
                                 value=""
                                 onKeyPress={event => this.checkSubmitOnEnter(event) }/>
                             <label htmlFor="searchContributorsCount">Max Contributors Count</label>
                             <input
+                                tabIndex={ 2 }
                                 type="number"
                                 id="searchContributorsCount"
                                 placeholder="Contributors Count"
+                                title="Contributors Count"
                                 min='1'
                                 max='200'
                                 value={DEFAULT_CONTRIBUTORS_COUNT}
@@ -101,13 +107,15 @@ export class AppHome {
                                 onKeyPress={event => { this.checkContributorsCount(); this.checkSubmitOnEnter(event); } }/>
                         </section>
                         <button
+                            tabIndex={ 4 }
                             type="button"
+                            title="Click to submit your search"
                             id="searchButton"
                             onClick={_event => this.launchRepositorySearch()}>Search</button>
                     </form>
                 </aside>
 
-                <article class="repository-detail">
+                <article class="repository-detail" aria-live="polite">
                     {
                         !this.isLoadingResults && this.currentRepositoryInfo ?
                             <section>

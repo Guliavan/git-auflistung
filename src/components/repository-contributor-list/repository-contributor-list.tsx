@@ -87,7 +87,7 @@ export class RepositoryContributorList {
                                     {this.fullContributorInfoList.map(
                                         fullContributorInfo =>
                                             <tr>
-                                                <td><img src={fullContributorInfo.avatar_url} class="contributor__avatar" /></td>
+                                                <td><img alt={`Avatar image for ${fullContributorInfo.login}`} src={fullContributorInfo.avatar_url} class="contributor__avatar" /></td>
                                                 <td>{fullContributorInfo.login}</td>
                                                 <td>{fullContributorInfo.contributions}</td>
                                                 <td>{fullContributorInfo.name}</td>
