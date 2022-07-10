@@ -2,6 +2,10 @@
     display: block;
 }
 
+.contributor__info {
+    margin-top: 20px;
+}
+
 .contributor__list {
     border: 1px solid #bbb;
     gap: 5px;

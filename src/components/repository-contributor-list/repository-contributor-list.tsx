@@ -1,5 +1,4 @@
-import { Prop, State, Watch } from '@rdd-giga/component-ui/dist/types/stencil-public-runtime';
-import { Component, Host, h } from '@stencil/core';
+import { Prop, State, Watch, Component, Host, h } from '@stencil/core';
 
 import { QUERY_PARAMS } from '../../global/constants';
 
@@ -17,8 +16,10 @@ export class RepositoryContributorList {
 
     @Watch('contributorList')
     watchHandler(_newValue: string): void {
-        this.updateFullControbutorList();
+        this.updateFullContributorList();
     }
+
+    private isLoadingContributors = false;
 
     async getFullContributorInfo(contributor: any) {
         const result = {
@@ -42,55 +43,61 @@ export class RepositoryContributorList {
         return result;
     }
 
-    updateFullControbutorList() {
-        // Get complete contributor information and update state variable to trigger re-render
-        const temporaryList = new Array<any>();
-        this.contributorList.map((contributor, index) => {
-            this.getFullContributorInfo(contributor).then(
-                fullContributorInfo => {
-                    temporaryList.push(fullContributorInfo);
-                    if (index == this.contributorList.length - 1) {
-                        this.fullContributorInfoList = temporaryList;
+    updateFullContributorList() {
+        if (this.contributorList) {
+            // Get complete contributor information and update state variable to trigger re-render
+            this.isLoadingContributors = true;
+            const temporaryList = new Array<any>();
+            this.contributorList.map((contributor, index) => {
+                this.getFullContributorInfo(contributor).then(
+                    fullContributorInfo => {
+                        temporaryList.push(fullContributorInfo);
+                        if (index == this.contributorList.length - 1) {
+                            this.fullContributorInfoList = temporaryList;
+                            this.isLoadingContributors = false;
+                        }
                     }
-                }
-            )
-        });
+                )
+            });
+        }
     }
 
     componentDidLoad() {
-        this.updateFullControbutorList();
+        this.updateFullContributorList();
     }
 
     render() {
 
         return (
             <Host>
-                {this.contributorList && this.contributorList.length > 0 ?
-                    <article>
-                        <header><h2>Repository Contributors ({this.contributorList.length})</h2></header>
-                        <table class="contributor__list">
-                            <tr>
-                                <th>Avatar</th>
-                                <th>Login</th>
-                                <th>Contributions</th>
-                                <th>Name</th>
-                                <th>Company</th>
-                                <th>Location</th>
-                            </tr>
-                            {this.fullContributorInfoList.map(
-                                fullContributorInfo =>
+                {this.fullContributorInfoList && this.fullContributorInfoList.length > 0 ?
+                    this.isLoadingContributors ?
+                        <article class="contributor__info">Loading contributors information, please wait...</article>
+                        :   <article>
+                                <header><h2>Repository Contributors ({this.fullContributorInfoList.length})</h2></header>
+                                <table class="contributor__list">
                                     <tr>
-                                        <td><img src={fullContributorInfo.avatar_url} class="contributor__avatar" /></td>
-                                        <td>{fullContributorInfo.login}</td>
-                                        <td>{fullContributorInfo.contributions}</td>
-                                        <td>{fullContributorInfo.name}</td>
-                                        <td>{fullContributorInfo.company}</td>
-                                        <td>{fullContributorInfo.location}</td>
+                                        <th>Avatar</th>
+                                        <th>Login</th>
+                                        <th>Contributions</th>
+                                        <th>Name</th>
+                                        <th>Company</th>
+                                        <th>Location</th>
                                     </tr>
-                            )}
-                        </table>
-                    </article>
-                    : 'No contributors to display :( !'}
+                                    {this.fullContributorInfoList.map(
+                                        fullContributorInfo =>
+                                            <tr>
+                                                <td><img src={fullContributorInfo.avatar_url} class="contributor__avatar" /></td>
+                                                <td>{fullContributorInfo.login}</td>
+                                                <td>{fullContributorInfo.contributions}</td>
+                                                <td>{fullContributorInfo.name}</td>
+                                                <td>{fullContributorInfo.company}</td>
+                                                <td>{fullContributorInfo.location}</td>
+                                            </tr>
+                                    )}
+                                </table>
+                            </article>
+                    : <article class="contributor__info">No contributors to display :( !</article>}
             </Host>
         );
     }

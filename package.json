@@ -13,9 +13,11 @@
   "devDependencies": {
     "@stencil-community/router": "^1.0.2",
     "@stencil/core": "2.13.0",
+    "@types/emoji-js": "^3.5.0",
     "@types/jest": "^27.0.3",
     "jest": "^27.4.5",
     "jest-cli": "^27.4.5",
+    "jest-fetch-mock": "^3.0.3",
     "puppeteer": "^10.0.0"
   },
   "license": "MIT",

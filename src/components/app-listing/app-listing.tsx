@@ -56,46 +56,54 @@ export class AppHome {
         return false;
     }
 
-
     checkContributorsCount() {
         let contributorsCount = this.element.shadowRoot.querySelector('#searchContributorsCount').value;
         contributorsCount = contributorsCount < 1 ? 1 : contributorsCount > 200 ? 200 : contributorsCount;
         this.element.shadowRoot.querySelector('#searchContributorsCount').value = contributorsCount;
     }
 
+    checkSubmitOnEnter(event: Event) {
+        if (event['charCode'] == 13) {
+            this.launchRepositorySearch()
+        }
+    }
 
     render() {
-
         return (
             <div class="app-listing">
-
                 <aside class="repository-search">
                     Please select owner and repository to look for:
-                    <form class="repository-search__form" onSubmit={_event => { this.launchRepositorySearch(); return false; }} action="#">
+                    <form class="repository-search__form">
                         <section class="repository-search__fields">
                             <label htmlFor="searchOwnerName">Owner's name</label>
                             <input
                                 type="text"
                                 id="searchOwnerName"
                                 placeholder="Owner's name"
-                                value="nodejs" />
+                                value=""
+                                onKeyPress={event => this.checkSubmitOnEnter(event) }/>
                             <label htmlFor="searchRepository">Repository name</label>
                             <input
                                 type="text"
                                 id="searchRepository"
                                 placeholder="Repository name"
-                                value="node" />
+                                value=""
+                                onKeyPress={event => this.checkSubmitOnEnter(event) }/>
                             <label htmlFor="searchContributorsCount">Max Contributors Count</label>
                             <input
                                 type="number"
                                 id="searchContributorsCount"
                                 placeholder="Contributors Count"
-                                value={DEFAULT_CONTRIBUTORS_COUNT}
                                 min='1'
                                 max='200'
-                                onBlur={_event => this.checkContributorsCount()} />
+                                value={DEFAULT_CONTRIBUTORS_COUNT}
+                                onBlur={_event => this.checkContributorsCount()}
+                                onKeyPress={event => { this.checkContributorsCount(); this.checkSubmitOnEnter(event); } }/>
                         </section>
-                        <button type="submit" onClick={_event => this.launchRepositorySearch()}>Search</button>
+                        <button
+                            type="button"
+                            id="searchButton"
+                            onClick={_event => this.launchRepositorySearch()}>Search</button>
                     </form>
                 </aside>
 
